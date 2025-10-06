@@ -30,15 +30,15 @@ pipeline {
                 }
             }
         }
-        stage('Update Deployment YAML with New Tag') {
-            steps {
-                script {
-                    sh """
-                    sed -i 's|image: dataguru97/studybuddy:.*|image: dataguru97/studybuddy:${IMAGE_TAG}|' manifests/deployment.yaml
-                    """
-                }
-            }
-        }
+        // stage('Update Deployment YAML with New Tag') {
+        //     steps {
+        //         script {
+        //             sh """
+        //             sed -i 's|image: dataguru97/studybuddy:.*|image: dataguru97/studybuddy:${IMAGE_TAG}|' manifests/deployment.yaml
+        //             """
+        //         }
+        //     }
+        // }
 
         // stage('Commit Updated YAML') {
         //     steps {
