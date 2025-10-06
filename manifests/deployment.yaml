@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: llmops-app
-        image: ROCKLEE100/llmops-app
+        image: aditya1243/studdybuddy:latest
         ports:
         - containerPort: 8501
         env:
