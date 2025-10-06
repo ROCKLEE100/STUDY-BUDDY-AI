@@ -12,33 +12,33 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git-token', url: 'https://github.com/ROCKLEE100/STUDY-BUDDY-AI.git']])
             }
         }        
-        // stage('Build Docker Image') {
-        //     steps {
-        //         script {
-        //             echo 'Building Docker image...'
-        //             dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}")
-        //         }
-        //     }
-        // }
-        // stage('Push Image to DockerHub') {
-        //     steps {
-        //         script {
-        //             echo 'Pushing Docker image to DockerHub...'
-        //             docker.withRegistry('https://registry.hub.docker.com' , "${DOCKER_HUB_CREDENTIALS_ID}") {
-        //                 dockerImage.push("${IMAGE_TAG}")
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Update Deployment YAML with New Tag') {
-        //     steps {
-        //         script {
-        //             sh """
-        //             sed -i 's|image: dataguru97/studybuddy:.*|image: dataguru97/studybuddy:${IMAGE_TAG}|' manifests/deployment.yaml
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    echo 'Building Docker image...'
+                    dockerImage = docker.build("${DOCKER_HUB_REPO}:${IMAGE_TAG}")
+                }
+            }
+        }
+        stage('Push Image to DockerHub') {
+            steps {
+                script {
+                    echo 'Pushing Docker image to DockerHub...'
+                    docker.withRegistry('https://registry.hub.docker.com' , "${DOCKER_HUB_CREDENTIALS_ID}") {
+                        dockerImage.push("${IMAGE_TAG}")
+                    }
+                }
+            }
+        }
+        stage('Update Deployment YAML with New Tag') {
+            steps {
+                script {
+                    sh """
+                    sed -i 's|image: dataguru97/studybuddy:.*|image: dataguru97/studybuddy:${IMAGE_TAG}|' manifests/deployment.yaml
+                    """
+                }
+            }
+        }
 
         // stage('Commit Updated YAML') {
         //     steps {
